@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wall  -fdiagnostics-color=always -fvisibility-inlines-hidden -g -shared -Wl,-soname,libBoundaryCheck.so -o libBoundaryCheck.so CMakeFiles/BoundaryCheck.dir/BoundaryCheck.cpp.o   -L/usr/lib/llvm-17/lib 
