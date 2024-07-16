@@ -1,16 +1,16 @@
 //==============================================================================
 // FILE:
-//    OpcodeCounter.h
+//    BoundaryCheck.h
 //
 // DESCRIPTION:
-//    Declares the OpcodeCounter Passes:
+//    Declares the BoundaryCheck Passes:
 //      * new pass manager interface
 //      * printer pass for the new pass manager
 //
 // License: MIT
 //==============================================================================
-#ifndef LLVM_TUTOR_OPCODECOUNTER_H
-#define LLVM_TUTOR_OPCODECOUNTER_H
+#ifndef LLVM_PASS_BOUNDARYCHECK_H
+#define LLVM_PASS_BOUNDARYCHECK_H
 
 #include "llvm/ADT/StringMap.h"
 #include "llvm/IR/Function.h"
@@ -27,18 +27,16 @@ using ResultBoundaryCheck = llvm::StringMap<llvm::StringRef>;
 struct BoundaryCheck : public llvm::AnalysisInfoMixin<BoundaryCheck> {
   using Result = ResultBoundaryCheck;
   Result res;
-  
+
   Result run(llvm::Module &M, llvm::ModuleAnalysisManager &) {
     computeImportedFuncs(M);
+    computeExportedFuncs(M);
     return res;
   }
 
   void computeImportedFuncs(llvm::Module &M);
   void computeExportedFuncs(llvm::Module &M);
-  void computeAddressTakenFuncs(llvm::Module &M);
 
-  // Part of the official API:
-  //  https://llvm.org/docs/WritingAnLLVMNewPMPass.html#required-passes
   static bool isRequired() { return true; }
 
 private:
@@ -56,8 +54,7 @@ public:
   explicit BoundaryCheckPrinter(llvm::raw_ostream &OutS) : OS(OutS) {}
   llvm::PreservedAnalyses run(llvm::Module &Module,
                               llvm::ModuleAnalysisManager &MAM);
-  // Part of the official API:
-  //  https://llvm.org/docs/WritingAnLLVMNewPMPass.html#required-passes
+
   static bool isRequired() { return true; }
 
 private:

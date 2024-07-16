@@ -3,7 +3,7 @@
 //      input_for_hello.c
 //
 // DESCRIPTION:
-//      Sample input file for HelloWorld and InjectFuncCall
+//      Sample input file for test
 //
 // License: MIT
 //=============================================================================
@@ -36,19 +36,20 @@ struct elevator_mq_ops {
 };
 struct elevator_type
 {
-	/* managed by elevator core */
 	int x_i;
-
-	/* fields provided by elevator implementation */
+  int (*sched)(int);
 	struct elevator_mq_ops ops;
 };
 static struct elevator_type iosched_bfq_mq = {
-	.x_i = 1,
+	.x_i = 15,
+  .sched = foo,
   .ops = {
 		.init = bar,
 		.exit	= fez,
 	},
 };
+
+
 struct ab {
   int al;
 }x;

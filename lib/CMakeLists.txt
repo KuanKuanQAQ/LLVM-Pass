@@ -1,20 +1,16 @@
 # THE LIST OF PLUGINS AND THE CORRESPONDING SOURCE FILES
 # ======================================================
 set(LLVM_TUTOR_PLUGINS
-    MyPass
     BoundaryCheck
+    CodeGenerator
     )
-
-set(MyPass_SOURCES
-  DebugInfoUtils.cpp
-  MyPass.cpp
-  PDGUtils.cpp
-  PDGNode.cpp
-  Tree.cpp
-  )
 
 set(BoundaryCheck_SOURCES
   BoundaryCheck.cpp
+  )
+
+set(CodeGenerator_SOURCES
+  CodeGenerator.cpp
   )
 
 # CONFIGURE THE PLUGIN LIBRARIES
